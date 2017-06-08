@@ -12,7 +12,7 @@ setup(
     author_email='rdejezus@leukeleu.nl',
     maintainer='Leukeleu',
     maintainer_email='info@leukeleu.nl',
-    url='https://github.com/leukeleu/wagtail_extras',
+    url='https://github.com/leukeleu/wagtail-extras',
     packages=find_packages(),
     classifiers=[
         'Intended Audience :: Developers',
