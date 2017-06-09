@@ -52,7 +52,7 @@ Returns an ordered list in the template, showing the current location.
 
 Load the template tag:
 
-    {% load breadcrumbs_tags %}
+    {% load wagtailextras_tags %}
 
 Write out the breadcrumbs in the html:
 
@@ -66,7 +66,7 @@ A simple implementation showing the pagestructure of wagtail as a menu.
 
 Load the template tag:
 
-    {% load menu_tags %}
+    {% load wagtailextras_tags %}
 
 Write out the menu in the html:
 
