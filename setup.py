@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='wagtail-extras',
-    version='0.2',
+    version='0.2.1',
     description='A collection of tools one might use to make wagtail even better',
     long_description=io.open('README.rst', encoding='utf-8').read(),
     keywords=['wagtail', 'extra',],
