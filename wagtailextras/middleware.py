@@ -26,16 +26,22 @@ class ObfuscateEmailAddressMiddleware(MiddlewareMixin):
     """
     def process_response(self, request, response):
         if is_html(response) and hasattr(response, 'content'):  # Do not obfuscate non-html and streaming responses.
-            # http://www.lampdocs.com/blog/2008/10/regular-expression-to-extract-all-e-mail-addresses-from-a-file-with-php/
-            email_pattern = re.compile(r'(mailto:)?[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*(\+[_a-zA-Z0-9-]+)?@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))')
-            response.content = email_pattern.sub(self.encode_email, response.content)
+            # https://emailregex.com/
+            email_pattern = r'(?P<email>[\w.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)'
+            # Checks for emails:
+            # - At start of the string
+            # - Directly preceeded by a space
+            # - Preceeded by a > which is not followed by a <
+            # - Inside a href (optionally preceeded by mailto:)
+            email_href_text = re.compile(r'(^|\s|>[^<]*?|(?<=href=[\'\"])(mailto:)?){email_pattern}'.format(email_pattern=email_pattern))
+            response.content = email_href_text.sub(self.encode_email, force_text(response.content))
+
         return response
 
     def encode_email(self, matches):
-        encoded_char_list = []
-        for char in matches.group(0):
-            encoded_char_list.append(random.choice(['&#%d;' % ord(char), '&#x%x;' % ord(char)]))
-        return ''.join(encoded_char_list)
+        email = matches.group('email')
+        encoded_email = ''.join(random.choice(['&#{:d};', '&#x{:x};']).format(ord(char)) for char in email)
+        return matches.group().replace(email, encoded_email)
 
 
 class ForceCsrfCookieMiddleware(MiddlewareMixin):
