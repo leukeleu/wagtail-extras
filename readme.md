@@ -18,7 +18,7 @@ For setup of individual parts, please continue below.
 
 ## ObfuscateEmailAddressMiddleware
 
-Transforms emailaddresses to ROT13-encoded strings to foil bots trying to harvest emailaddress
+Transforms emailaddresses to decimal/hexadecimal unicode character entities to foil bots trying to harvest emailaddress
 
 ### Setup
 
