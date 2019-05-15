@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.template import loader, RequestContext
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_text, force_text
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.html import escape
 
