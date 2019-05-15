@@ -1,9 +1,8 @@
 import random
 import re
 import json
-from urllib import unquote
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.template import loader, RequestContext
