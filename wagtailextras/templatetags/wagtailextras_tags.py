@@ -2,7 +2,7 @@ from datetime import date
 from django import template
 from django.conf import settings
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 register = template.Library()
 
@@ -21,7 +21,8 @@ def breadcrumbs(context):
         'request': context['request'],
     }
 
-@register.assignment_tag(takes_context=True)
+
+@register.simple_tag(takes_context=True)
 def get_site_root(context):
     # NB this returns a core.Page, not the implementation-specific model used
     # so object-comparison to self will return false as objects would differ
