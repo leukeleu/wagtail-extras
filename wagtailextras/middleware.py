@@ -34,6 +34,7 @@ class ObfuscateEmailAddressMiddleware(MiddlewareMixin):
             # - Inside a href (optionally preceeded by mailto:)
             email_href_text = re.compile(r'(^|\s|>[^<]*?|(?<=href=[\'\"])(mailto:)?){email_pattern}'.format(email_pattern=email_pattern))
             response.content = email_href_text.sub(self.encode_email, force_text(response.content))
+            response['Content-Length'] = len(response.content)
 
         return response
 
